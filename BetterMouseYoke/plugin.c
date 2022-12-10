@@ -39,6 +39,9 @@ static int rudder_return;
 static int rudder_defl_dist;
 static float yaw_ratio;
 static float rudder_ret_spd;
+
+static float lastTimeEnabled=0;
+
 #ifdef IBM
 static HWND xp_hwnd;
 static HCURSOR yoke_cursor;
@@ -201,15 +204,21 @@ int init_menu() {
     return menu_init(PLUGIN_NAME, items, num);
 }
 
+
+
 int toggle_yoke_control_cb(XPLMCommandRef cmd, XPLMCommandPhase phase, void *ref) {
-    if (phase != xplm_CommandBegin)
-        return 1;
-    if (yoke_control_enabled) {
+    
+    if (yoke_control_enabled==1 && phase == xplm_CommandContinue
+        && (XPLMGetElapsedTime()-lastTimeEnabled) > 0.5f) {
+        yoke_control_enabled=2; // hold mode
+    }
+    else if ((yoke_control_enabled==2 && phase == xplm_CommandEnd)
+             || (yoke_control_enabled==1 && phase == xplm_CommandBegin)) {
         if (change_cursor)
             set_cursor_bmp(CURSOR_ARROW);
         yoke_control_enabled = 0;
         rudder_control = 0;
-    } else {
+    } else if(phase == xplm_CommandBegin){
         /* Fetch screen dimensions here because doing it from XPluginEnable
            give unrealiable results. Also the screen size may be changed by
            the user at any time. */
@@ -221,6 +230,8 @@ int toggle_yoke_control_cb(XPLMCommandRef cmd, XPLMCommandPhase phase, void *ref
             set_cursor_bmp(CURSOR_YOKE);
         yoke_control_enabled = 1;
         XPLMScheduleFlightLoop(loop_id, -1.0f, 0);
+        
+        lastTimeEnabled = XPLMGetElapsedTime();
     }
     return 1;
 }
