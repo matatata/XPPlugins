@@ -18,11 +18,13 @@
 #define MAX_QUICK_LOOKS     20
 static XPLMCommandRef cycle_forward;
 static XPLMCommandRef cycle_backward;
+static XPLMCommandRef reload_quick_looks;
 static int quick_looks[MAX_QUICK_LOOKS];
 static int num_quick_looks;
 static int current;
 
 int cycle_quick_look_cb(XPLMCommandRef cmd, XPLMCommandPhase phase, void *ref);
+int reload_quick_look_cb(XPLMCommandRef cmd, XPLMCommandPhase phase, void *ref);
 int get_quick_looks(int *buf, int buf_size);
 
 /**
@@ -63,6 +65,8 @@ PLUGIN_API int XPluginEnable(void) {
         "Cycle forward to next quick look", cycle_quick_look_cb, 0);
     cycle_backward = cmd_create("CycleQuickLooks/Backward",
         "Cycle backward to previous quick look", cycle_quick_look_cb, (void*)1);
+    reload_quick_looks = cmd_create("CycleQuickLooks/Reload",
+        "Reload quick looks", reload_quick_look_cb, 0);
     return 1;
 }
 
@@ -74,6 +78,7 @@ PLUGIN_API int XPluginEnable(void) {
 PLUGIN_API void XPluginDisable(void) {
     cmd_free(cycle_forward, cycle_quick_look_cb, 0);
     cmd_free(cycle_backward, cycle_quick_look_cb, (void*)1);
+    cmd_free(reload_quick_looks, reload_quick_looks, 0);
 }
 
 /**
@@ -150,4 +155,9 @@ int cycle_quick_look_cb(XPLMCommandRef cmd, XPLMCommandPhase phase, void *ref) {
     if (cmd_ref)
         XPLMCommandOnce(cmd_ref);
     return 1;
+}
+
+int reload_quick_look_cb(XPLMCommandRef cmd, XPLMCommandPhase phase, void *ref) {
+    num_quick_looks = get_quick_looks(quick_looks, MAX_QUICK_LOOKS);
+    _log("loaded %i quick looks", num_quick_looks);
 }
