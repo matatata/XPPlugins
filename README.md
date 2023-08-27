@@ -15,3 +15,17 @@ It currently includes
 Under Windows either simply run *msbuild.exe* or just open *XPPlugins.sln* in Visual Studio and build the solution.
 
 For MacOSX you can just do a *make all*.
+
+# matatata: 2023 Aug 27
+## I added cmake support ad fixed minor macos problems regarding mouse events.
+
+It will build universal binares that will run on intel and Apple Silicon Macs.  X-Plane must be allowed to capture events - It will ask you. Tested on macOS Ventura 13.5.1. 
+
+Build like this:
+```
+cd XPPlugins
+cmake -S . -B build
+cd build
+make
+```
+You'll then find the plugins in build/install
