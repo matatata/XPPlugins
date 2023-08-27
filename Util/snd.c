@@ -5,7 +5,7 @@
  * dealing with configuration files. Linked against by most plugins in the
  * solution.
  *
- * Copyright 2019 Torben Könke.
+ * Copyright 2019 Torben Kï¿½nke.
  */
 #include "util.h"
 
@@ -28,7 +28,7 @@ static vol_tbl_t vol_tbl[] = {
 static const int num_vol_tbl = sizeof(vol_tbl) / sizeof(vol_tbl[0]);
 
 int snd_init() {
-    FMOD_RESULT err = FMOD_System_Create(&fmod_sys);
+    FMOD_RESULT err = FMOD_System_Create(&fmod_sys,FMOD_VERSION);
     if (err) {
         _log("snd_init: could not create fmod system (%i)", err);
         return 0;
