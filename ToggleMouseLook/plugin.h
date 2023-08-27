@@ -9,9 +9,9 @@
 #define _PLUGIN_H_
 
 #include "../Util/util.h"
-#include "../XP/XPLMDisplay.h"
-#include "../XP/XPLMGraphics.h"
-#include "../XP/XPLMProcessing.h"
+#include "XPLMDisplay.h"
+#include "XPLMGraphics.h"
+#include "XPLMProcessing.h"
 
 int toggle_cb(XPLMCommandRef cmd, XPLMCommandPhase phase, void *data);
 int hold_cb(XPLMCommandRef cmd, XPLMCommandPhase phase, void *data);

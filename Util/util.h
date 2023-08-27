@@ -5,14 +5,18 @@
  * dealing with configuration files. Linked against by most plugins in the
  * solution.
  *
- * Copyright 2019 Torben Könke.
+ * Copyright 2019 Torben Kï¿½nke.
  */
 #ifndef _UTIL_H_
 #define _UTIL_H_
 
-#define XPLM200
-#define XPLM210
-#define XPLM300
+#ifdef IBM
+    #if IBM
+    #else
+        #undef IBM
+    #endif
+#endif
+
 #ifdef _WIN32
 #ifndef _WIN64
 #error Only 64-Bit platforms are supported.
@@ -22,11 +26,11 @@
 #pragma comment(lib, "../XP/Libs/XPLM_64.lib")
 #endif /* _WIN32 */
 
-#include "../XP/XPLMUtilities.h"
-#include "../XP/XPLMDataAccess.h"
-#include "../XP/XPLMPlugin.h"
-#include "../XP/XPLMPlanes.h"
-#include "../XP/XPLMMenus.h"
+#include "XPLMUtilities.h"
+#include "XPLMDataAccess.h"
+#include "XPLMPlugin.h"
+#include "XPLMPlanes.h"
+#include "XPLMMenus.h"
 #include "../FMOD/fmod.h"
 #include <stdio.h>
 #include <stdbool.h>

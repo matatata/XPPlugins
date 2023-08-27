@@ -3,7 +3,7 @@
  *
  * Adds two new commands that mimic the mouse look behaviour of Prepar3D.
  *
- * Copyright 2019 Torben Könke.
+ * Copyright 2019 Torben KÃ¶nke.
  */
 #include "plugin.h"
 
@@ -196,15 +196,9 @@ CGEventRef cg_event_cb(CGEventTapProxy proxy, CGEventType type,
 }
 
 int tap_events() {
-    ProcessSerialNumber psn;
-    OSErr err = GetCurrentProcess(&psn);
-    if (err != noErr) {
-      _log("could not get psn (%i)", err);
-      return 0;
-    }
     /* CGEventTapCreateForPid has only been added with 10.11 */
-    event_tap = CGEventTapCreateForPSN(&psn, kCGHeadInsertEventTap,
-        kCGEventTapOptionDefault, CGEventMaskBit(kCGEventRightMouseDown) |
+    event_tap = CGEventTapCreateForPid(getpid(), kCGHeadInsertEventTap,
+        kCGEventTapOptionListenOnly, CGEventMaskBit(kCGEventRightMouseDown) |
         CGEventMaskBit(kCGEventRightMouseUp), cg_event_cb, NULL);
     if (!event_tap) {
         _log("could not create event tap");

@@ -11,9 +11,9 @@
 #define _PLUGIN_H_
 
 #include "../Util/util.h"
-#include "../XP/XPLMDisplay.h"
-#include "../XP/XPLMGraphics.h"
-#include "../XP/XPLMProcessing.h"
+#include "XPLMDisplay.h"
+#include "XPLMGraphics.h"
+#include "XPLMProcessing.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdarg.h>

@@ -16,9 +16,9 @@
 
 #include "a320.h"
 #include "../Util/util.h"
-#include "../XP/XPLMProcessing.h"
-#include "../XP/XPLMGraphics.h"
-#include "../XP/XPLMDisplay.h"
+#include "XPLMProcessing.h"
+#include "XPLMGraphics.h"
+#include "XPLMDisplay.h"
 #include <math.h>
 
 /* plugin */
