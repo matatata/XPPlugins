@@ -17,13 +17,20 @@
     #endif
 #endif
 
+#ifdef APL
+#if APL
+#else
+#undef APL
+#endif
+#endif
+
 #ifdef _WIN32
 #ifndef _WIN64
 #error Only 64-Bit platforms are supported.
 #endif /* _WIN64 */
 #define _CRT_SECURE_NO_WARNINGS
 #define IBM 1
-#pragma comment(lib, "../XP/Libs/XPLM_64.lib")
+//#pragma comment(lib, "../XP/Libs/XPLM_64.lib")
 #endif /* _WIN32 */
 
 #include "XPLMUtilities.h"
@@ -31,7 +38,7 @@
 #include "XPLMPlugin.h"
 #include "XPLMPlanes.h"
 #include "XPLMMenus.h"
-#include "../FMOD/fmod.h"
+#include "fmod.h"
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdarg.h>

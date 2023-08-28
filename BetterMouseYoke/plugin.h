@@ -18,7 +18,6 @@
 #include <string.h>
 #include <stdarg.h>
 #ifdef IBM
-#pragma comment(lib, "detours.lib")
 #include "detours.h"
 int hook_set_cursor(int attach);
 #endif

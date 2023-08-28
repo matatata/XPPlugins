@@ -10,9 +10,6 @@
 #ifndef _PLUGIN_H_
 #define _PLUGIN_H_
 
-#ifdef _WIN32
-#pragma comment(lib, "../FMOD/Libs/fmod64_vc.lib")
-#endif /* _WIN32 */
 
 #include "a320.h"
 #include "../Util/util.h"

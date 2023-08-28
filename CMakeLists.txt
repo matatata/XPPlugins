@@ -24,12 +24,11 @@ include_directories("${CMAKE_SOURCE_DIR}/FMOD")
 # Specify library search locations.
 if (WIN32)
     list(APPEND CMAKE_LIBRARY_PATH "${CMAKE_SOURCE_DIR}/SDK/Libraries/Win")
-    list(APPEND CMAKE_FRAMEWORK_PATH "${CMAKE_SOURCE_DIR}/FMOD/Libs")
 elseif (APPLE)
     list(APPEND CMAKE_FRAMEWORK_PATH "${CMAKE_SOURCE_DIR}/SDK/Libraries/Mac")
-    list(APPEND CMAKE_FRAMEWORK_PATH "${CMAKE_SOURCE_DIR}/FMOD/Libs")
 elseif (UNIX)
 endif ()
+list(APPEND CMAKE_LIBRARY_PATH "${CMAKE_SOURCE_DIR}/FMOD/Libs")
 
 if (WIN32 OR APPLE)
     find_library(XPLM_LIBRARY NAMES XPLM XPLM_64.lib)
@@ -39,6 +38,18 @@ if (APPLE)
     find_library(CORE_FOUNDATION_LIBRARY CoreFoundation)
     find_library(IOKIT_LIBRARY IOKit)
 endif ()
+
+# Link Fmod related libraries.
+# Windows will not find the dll so we have to do this dance
+if (APPLE OR UNIX)
+    if (APPLE)
+       find_library(FMOD_LIB NAMES libfmod.dylib)
+    elseif (UNIX)
+       find_library(FMOD_LIB NAMES libfmod.so.13.10)
+    elseif(WIN32)
+    endif ()
+endif () 
+
 
 # Enable all X-Plane SDK APIs up to the newest version.
 add_definitions(-DXPLM200=1 -DXPLM210=1 -DXPLM300=1 -DXPLM301=1 -DXPLM303=1 -DXPLM400=1)
