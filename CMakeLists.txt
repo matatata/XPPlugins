@@ -1,18 +1,18 @@
 cmake_minimum_required(VERSION 3.9)
 
+
 project("XPPlugins")
 
-
-# X-Plane supports OS X 10.10+, so this should ensure the plugin can run on
-# all supported versions.
-set(CMAKE_OSX_DEPLOYMENT_TARGET "10.10")
-set(CMAKE_OSX_ARCHITECTURES "x86_64;arm64") 
-
+if(APPLE)
+    set(CMAKE_OSX_DEPLOYMENT_TARGET "10.10")
+    set(CMAKE_OSX_ARCHITECTURES "x86_64;arm64") 
+endif()
 
 # By default, use optimized release configuration.
 if (NOT CMAKE_BUILD_TYPE OR CMAKE_BUILD_TYPE STREQUAL "")
     set(CMAKE_BUILD_TYPE "Release" CACHE STRING "" FORCE)
 endif ()
+
 
 set(CMAKE_CXX_STANDARD 14)
 
@@ -106,13 +106,19 @@ function(link_plugin PLUGIN_NAME)
     set_target_properties(${PLUGIN_NAME} PROPERTIES  LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/install/${PLUGIN_NAME}/64/)
 
 
- endfunction(link_plugin)
+endfunction(link_plugin)
+
+add_subdirectory(Util)
 
 
- add_subdirectory(Util)
+set(PLUGS CycleQuickLooks MouseButtons ToggleMouseLook A320UE)
+if(NOT MINGW)
+    list(APPEND PLUGS BetterMouseYoke)
+endif()
 
- foreach(plug BetterMouseYoke CycleQuickLooks MouseButtons ToggleMouseLook A320UE) 
+
+foreach(plug ${PLUGS}) 
     add_subdirectory(${plug})
- endforeach()
+endforeach()
 
 

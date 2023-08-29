@@ -3,7 +3,6 @@ set(PLUGIN_NAME "BetterMouseYoke")
 add_library(${PLUGIN_NAME} SHARED
 plugin.c
 plugin.h
-detours.h
 )
 
 if(WIN32)

@@ -1,0 +1,11 @@
+{
+    //"workbench.editor.showTabs": false,
+    //"C_Cpp.default.compilerPath": "/usr/bin/clang",
+    //"cmake.configureOnOpen": true,
+    "cmake.configureSettings": {
+       
+       // "CMAKE_TOOLCHAIN_FILE" : "${workspaceFolder}/mingw-w64-macOS-x86-64.cmake"
+       
+    }
+}
+

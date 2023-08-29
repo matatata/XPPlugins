@@ -1,0 +1,18 @@
+#-DCMAKE_TOOLCHAIN_FILE
+
+set(CMAKE_SYSTEM_NAME Windows)
+set(TOOLCHAIN_PREFIX x86_64-w64-mingw32)
+
+# cross compilers to use for C and C++
+set(CMAKE_C_COMPILER ${TOOLCHAIN_PREFIX}-gcc)
+set(CMAKE_CXX_COMPILER ${TOOLCHAIN_PREFIX}-g++)
+set(CMAKE_RC_COMPILER ${TOOLCHAIN_PREFIX}-windres)
+
+
+set(CMAKE_C_FLAGS "-Wno-pointer-to-int-cast -Wno-int-conversion")
+
+SET (CMAKE_C_COMPILER_WORKS 1)
+SET (CMAKE_CXX_COMPILER_WORKS 1)
+
+
+
